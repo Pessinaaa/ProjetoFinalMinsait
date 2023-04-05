@@ -29,6 +29,13 @@ public class Cliente {
 		CEP = cep;
 		this.rendimentoMensal = rendimentoMensal;
 	}
+	
+	public Cliente(String nome, Integer telefone, String endereco, Integer cep) {
+		this.nome = nome;
+		this.telefone = telefone;
+		this.endereco = endereco;
+		CEP = cep;
+	}
 
 	public String getCPF() {
 		return CPF;
