@@ -9,7 +9,7 @@ public class Cliente {
 	//Atributos
 	
 	@Id
-	private String CPF; // CPF definido como string pois podem haver CPFs com X
+	private Integer CPF;
 	
 	private String nome;
 	private Integer telefone;
@@ -21,27 +21,28 @@ public class Cliente {
 	
 	public Cliente() {	}
 
-	public Cliente(String cpf, String nome, Integer telefone, String endereco, Integer cep, Double rendimentoMensal) {
-		CPF = cpf;
+	public Cliente(Integer cpf, String nome, Integer telefone, String endereco, Integer cep, Double rendimentoMensal) {
+		this.CPF = cpf;
 		this.nome = nome;
 		this.telefone = telefone;
 		this.endereco = endereco;
-		CEP = cep;
+		this.CEP = cep;
 		this.rendimentoMensal = rendimentoMensal;
 	}
 	
-	public Cliente(String nome, Integer telefone, String endereco, Integer cep) {
+	public Cliente(String nome, Integer telefone, String endereco, Integer cep, Double rendimentoMensal) {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.endereco = endereco;
-		CEP = cep;
+		this.CEP = cep;
+		this.rendimentoMensal = rendimentoMensal;
 	}
 
-	public String getCPF() {
+	public Integer getCPF() {
 		return CPF;
 	}
-	public void setCPF(String cPF) {
-		CPF = cPF;
+	public void setCPF(Integer cpf) {
+		this.CPF = cpf;
 	}
 
 	public String getNome() {
@@ -68,8 +69,8 @@ public class Cliente {
 	public Integer getCEP() {
 		return CEP;
 	}
-	public void setCEP(Integer cEP) {
-		CEP = cEP;
+	public void setCEP(Integer cep) {
+		this.CEP = cep;
 	}
 
 	public Double getRendimentoMensal() {

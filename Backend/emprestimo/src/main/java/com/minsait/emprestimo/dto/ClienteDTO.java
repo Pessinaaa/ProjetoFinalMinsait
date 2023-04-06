@@ -9,16 +9,18 @@ public class ClienteDTO {
 	private Integer telefone;
 	private String endereco; // Rua e número
 	private Integer CEP;
+	private Double rendimentoMensal;
 	
 	//Métodos
 	
 	public ClienteDTO() {	}
 
-	public ClienteDTO(String nome, Integer telefone, String endereco, Integer cep) {
+	public ClienteDTO(String nome, Integer telefone, String endereco, Integer cep, Double rendimentoMensal) {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.endereco = endereco;
-		CEP = cep;
+		this.CEP = cep;
+		this.rendimentoMensal = rendimentoMensal;
 	}
 
 	public String getNome() {
@@ -45,17 +47,24 @@ public class ClienteDTO {
 	public Integer getCEP() {
 		return CEP;
 	}
-	public void setCEP(Integer cEP) {
-		CEP = cEP;
+	public void setCEP(Integer cep) {
+		this.CEP = cep;
+	}
+	
+	public Double getRendimentoMensal() {
+		return rendimentoMensal;
+	}
+	public void setRendimentoMensal(Double rendimentoMensal) {
+		this.rendimentoMensal = rendimentoMensal;
 	}
 	
 	//Recebe um cliente e retorna um clienteDTO sem os dados sensíveis
 	public static ClienteDTO retornaClienteDTO(Cliente cliente) {
-		return new ClienteDTO(cliente.getNome(), cliente.getTelefone(), cliente.getEndereco(), cliente.getCEP());
+		return new ClienteDTO(cliente.getNome(), cliente.getTelefone(), cliente.getEndereco(), cliente.getCEP(), cliente.getRendimentoMensal());
 	}
 	
 	//Recebe um clieteDTO e retorna um cliente que vai receber os dados sensíveis depois
 	public static Cliente retornaCliente(ClienteDTO clienteDTO) {
-		return new Cliente(clienteDTO.getNome(), clienteDTO.getTelefone(), clienteDTO.getEndereco(), clienteDTO.getCEP());
+		return new Cliente(clienteDTO.getNome(), clienteDTO.getTelefone(), clienteDTO.getEndereco(), clienteDTO.getCEP(), clienteDTO.getRendimentoMensal());
 	}
 }
