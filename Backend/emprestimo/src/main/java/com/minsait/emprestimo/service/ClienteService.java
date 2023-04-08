@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.minsait.emprestimo.entity.Cliente;
+import com.minsait.emprestimo.exception.CPFJaCadastradoException;
 import com.minsait.emprestimo.repository.ClienteRepository;
 
 @Service
@@ -15,7 +16,10 @@ public class ClienteService {
 		this.clienteRepository = clienteRepository;
 	}
 	
-	public Cliente cadastrarCliente(Cliente cliente) {
-		return this.clienteRepository.save(cliente);
+	public Cliente cadastrarCliente(Cliente cliente) throws Exception {
+	if (!this.clienteRepository.existsById(cliente.getCPF())) {
+			return this.clienteRepository.save(cliente);
+		}
+	throw new CPFJaCadastradoException(cliente.getCPF());
 	}
 }

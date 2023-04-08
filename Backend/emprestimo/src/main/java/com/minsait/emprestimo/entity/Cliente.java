@@ -9,7 +9,7 @@ public class Cliente {
 	//Atributos
 	
 	@Id
-	private Integer CPF;
+	private Long CPF;
 	
 	private String nome;
 	private Integer telefone;
@@ -21,7 +21,7 @@ public class Cliente {
 	
 	public Cliente() {	}
 
-	public Cliente(Integer cpf, String nome, Integer telefone, String endereco, Integer cep, Double rendimentoMensal) {
+	public Cliente(Long cpf, String nome, Integer telefone, String endereco, Integer cep, Double rendimentoMensal) {
 		this.CPF = cpf;
 		this.nome = nome;
 		this.telefone = telefone;
@@ -38,11 +38,11 @@ public class Cliente {
 		this.rendimentoMensal = rendimentoMensal;
 	}
 
-	public Integer getCPF() {
+	public Long getCPF() {
 		return CPF;
 	}
-	public void setCPF(Integer cpf) {
-		this.CPF = cpf;
+	public void setCPF(Long cpf) {
+		CPF = cpf;
 	}
 
 	public String getNome() {

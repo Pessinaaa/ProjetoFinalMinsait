@@ -1,5 +1,6 @@
 package com.minsait.emprestimo.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,16 +14,21 @@ import com.minsait.emprestimo.service.ClienteService;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/v1/emprestimo/clientes")
 public class ClienteController {
 
 	private ClienteService clienteService;
 	
+	@Autowired
+	public ClienteController(ClienteService clienteService) {
+		this.clienteService = clienteService;
+	}
+	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente cadastraCliente(@Valid @RequestBody Cliente cliente) {
+	public Cliente cadastrarCliente(@Valid @RequestBody Cliente cliente) throws Exception {
 		return this.clienteService.cadastrarCliente(cliente);
 	}
 }
