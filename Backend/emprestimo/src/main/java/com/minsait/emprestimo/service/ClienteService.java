@@ -1,5 +1,7 @@
 package com.minsait.emprestimo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +23,9 @@ public class ClienteService {
 			return this.clienteRepository.save(cliente);
 		}
 	throw new CPFJaCadastradoException(cliente.getCPF());
+	}
+	
+	public List<Cliente> retornarTodosClientes() {
+		return this.clienteRepository.findAll();
 	}
 }
