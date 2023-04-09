@@ -10,6 +10,8 @@ import com.minsait.emprestimo.exception.CPFJaCadastradoException;
 import com.minsait.emprestimo.exception.CPFNaoEncontradoException;
 import com.minsait.emprestimo.repository.ClienteRepository;
 
+import jakarta.validation.Valid;
+
 @Service
 public class ClienteService {
 	private ClienteRepository clienteRepository;
@@ -43,5 +45,29 @@ public class ClienteService {
 		} else {
 			throw new CPFNaoEncontradoException(cpf);
 		}
+	}
+	
+	public Cliente alterarCliente(Long cpf, @Valid Cliente cliente) throws CPFNaoEncontradoException {
+		if (this.clienteRepository.existsById(cpf)) {
+			Cliente clienteASerAlterado = this.clienteRepository.getReferenceById(cpf);
+			cliente.setCPF(cpf);
+			if (cliente.getNome() == null) {
+				cliente.setNome(clienteASerAlterado.getNome());
+			}
+			if (cliente.getTelefone() == null) {
+				cliente.setTelefone(clienteASerAlterado.getTelefone());
+			}
+			if (cliente.getEndereco() == null) {
+				cliente.setEndereco(clienteASerAlterado.getEndereco());
+			}
+			if (cliente.getCEP() == null) {
+				cliente.setCEP(clienteASerAlterado.getCEP());
+			}
+			if (cliente.getRendimentoMensal() == null) {
+				cliente.setRendimentoMensal(clienteASerAlterado.getRendimentoMensal());
+			}
+			return this.clienteRepository.save(cliente);
+		}
+		throw new CPFNaoEncontradoException(cpf);
 	}
 }

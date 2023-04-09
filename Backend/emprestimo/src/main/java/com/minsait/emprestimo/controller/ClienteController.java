@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.minsait.emprestimo.dto.ClienteDTO;
 import com.minsait.emprestimo.entity.Cliente;
 import com.minsait.emprestimo.exception.CPFJaCadastradoException;
 import com.minsait.emprestimo.exception.CPFNaoEncontradoException;
@@ -53,5 +55,12 @@ public class ClienteController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deletarCliente(@PathVariable Long cpf) throws CPFNaoEncontradoException {
 		this.clienteService.deletarCliente(cpf);
+	}
+	
+	@PutMapping("/{cpf}")
+	public ClienteDTO alterarCliente(@PathVariable Long cpf, @Valid @RequestBody ClienteDTO cliente) throws CPFNaoEncontradoException {
+		Cliente clienteRequest = ClienteDTO.retornaCliente(cliente);
+		Cliente clienteAlterado = this.clienteService.alterarCliente(cpf, clienteRequest);
+		return ClienteDTO.retornaClienteDTO(clienteAlterado);
 	}
 }
