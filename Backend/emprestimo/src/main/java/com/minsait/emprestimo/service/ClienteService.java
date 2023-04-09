@@ -30,10 +30,18 @@ public class ClienteService {
 		return this.clienteRepository.findAll();
 	}
 	
-	public Cliente retornarClientePeloCPF(Long cpf) throws CPFNaoEncontradoException{
+	public Cliente retornarClientePeloCPF(Long cpf) throws CPFNaoEncontradoException {
 		if (this.clienteRepository.existsById(cpf)) {
 			return this.clienteRepository.getReferenceById(cpf);
 		}
 		throw new CPFNaoEncontradoException(cpf);
+	}
+	
+	public void deletarCliente(Long cpf) throws CPFNaoEncontradoException {
+		if (this.clienteRepository.existsById(cpf)) {
+			this.clienteRepository.deleteById(cpf);
+		} else {
+			throw new CPFNaoEncontradoException(cpf);
+		}
 	}
 }
