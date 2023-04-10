@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.minsait.emprestimo.entity.Emprestimo;
+import com.minsait.emprestimo.exception.CPFNaoCorrespondenteException;
 import com.minsait.emprestimo.exception.CPFNaoEncontradoException;
+import com.minsait.emprestimo.exception.IdNaoEncontradoException;
 import com.minsait.emprestimo.repository.ClienteRepository;
 import com.minsait.emprestimo.repository.EmprestimoRepository;
 import com.minsait.emprestimo.strategy.Relacionamento;
@@ -27,6 +29,20 @@ public class EmprestimoService {
 			emprestimo.setCPFCliente(cpf);
 			emprestimo.setNivelRelacionamento(Relacionamento.BRONZE);
 			return this.emprestimoRepository.save(emprestimo);
+		}
+		throw new CPFNaoEncontradoException(cpf);
+	}
+	
+	public Emprestimo retornarEmprestimoPorId(Long cpf, Long id) throws CPFNaoEncontradoException, IdNaoEncontradoException, CPFNaoCorrespondenteException {
+		if (this.clienteRepository.existsById(cpf)) {
+			if (this.emprestimoRepository.existsById(id)) {
+				Emprestimo emprestimo = this.emprestimoRepository.getReferenceById(id);
+				if (emprestimo.getCPFCliente().equals(cpf)) {
+					return emprestimo;
+				}
+				throw new CPFNaoCorrespondenteException(id, cpf);
+			}
+			throw new IdNaoEncontradoException(id);
 		}
 		throw new CPFNaoEncontradoException(cpf);
 	}

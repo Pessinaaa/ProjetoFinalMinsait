@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.minsait.emprestimo.entity.Emprestimo;
+import com.minsait.emprestimo.exception.CPFNaoCorrespondenteException;
 import com.minsait.emprestimo.exception.CPFNaoEncontradoException;
+import com.minsait.emprestimo.exception.IdNaoEncontradoException;
 import com.minsait.emprestimo.service.EmprestimoService;
 
 import jakarta.validation.Valid;
@@ -40,5 +42,10 @@ public class EmprestimoController {
 	@GetMapping
 	public List<Emprestimo> retornarTodosEmprestimos(@PathVariable Long cpf) throws CPFNaoEncontradoException {
 		return this.emprestimoService.retornarTodosEmprestimos(cpf);
+	}
+	
+	@GetMapping("/{id}")
+	public Emprestimo retornarEmprestimoPorId(@PathVariable Long cpf, @PathVariable Long id) throws CPFNaoEncontradoException, IdNaoEncontradoException, CPFNaoCorrespondenteException {
+		return this.emprestimoService.retornarEmprestimoPorId(cpf, id);
 	}
 }
