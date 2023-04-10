@@ -9,6 +9,7 @@ import com.minsait.emprestimo.entity.Emprestimo;
 import com.minsait.emprestimo.exception.CPFNaoCorrespondenteException;
 import com.minsait.emprestimo.exception.CPFNaoEncontradoException;
 import com.minsait.emprestimo.exception.IdNaoEncontradoException;
+import com.minsait.emprestimo.exception.LimiteDeEmprestimoAtingidoException;
 import com.minsait.emprestimo.repository.ClienteRepository;
 import com.minsait.emprestimo.repository.EmprestimoRepository;
 import com.minsait.emprestimo.strategy.Relacionamento;
@@ -24,13 +25,13 @@ public class EmprestimoService {
 		this.clienteRepository = clienteRepository;
 	}
 	
-	public Emprestimo cadastrarEmprestimo(Long cpf, Emprestimo emprestimo) throws CPFNaoEncontradoException {
-		if (this.clienteRepository.existsById(cpf)) {
+	public Emprestimo cadastrarEmprestimo(Long cpf, Emprestimo emprestimo) throws CPFNaoEncontradoException, LimiteDeEmprestimoAtingidoException {
+		if (this.clientePodePedirEmprestimo(cpf, emprestimo.getValorInicial())) {
 			emprestimo.setCPFCliente(cpf);
 			emprestimo.setNivelRelacionamento(Relacionamento.BRONZE);
 			return this.emprestimoRepository.save(emprestimo);
 		}
-		throw new CPFNaoEncontradoException(cpf);
+		throw new LimiteDeEmprestimoAtingidoException(cpf);
 	}
 	
 	public Emprestimo retornarEmprestimoPorId(Long cpf, Long id) throws CPFNaoEncontradoException, IdNaoEncontradoException, CPFNaoCorrespondenteException {
@@ -66,5 +67,18 @@ public class EmprestimoService {
 			throw new IdNaoEncontradoException(id);
 		}
 		throw new CPFNaoEncontradoException(cpf);
+	}
+	
+	//Método para verificar se o cliente pode pedir empréstimo no valor solicitado
+	public boolean clientePodePedirEmprestimo(Long cpf, Double valor) throws CPFNaoEncontradoException {
+		Double valorMaximo = this.clienteRepository.getReferenceById(cpf).getRendimentoMensal() * 10;
+		Double valorEmprestimo = valor;
+		for (Emprestimo emprestimoAuxiliar : this.retornarTodosEmprestimos(cpf)) {
+			valorEmprestimo += emprestimoAuxiliar.getValorInicial();
+		}
+		if (valorEmprestimo <= valorMaximo) {
+			return true;
+		}
+		return false;
 	}
 }

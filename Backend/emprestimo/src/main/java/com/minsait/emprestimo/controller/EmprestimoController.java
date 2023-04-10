@@ -18,6 +18,7 @@ import com.minsait.emprestimo.entity.Emprestimo;
 import com.minsait.emprestimo.exception.CPFNaoCorrespondenteException;
 import com.minsait.emprestimo.exception.CPFNaoEncontradoException;
 import com.minsait.emprestimo.exception.IdNaoEncontradoException;
+import com.minsait.emprestimo.exception.LimiteDeEmprestimoAtingidoException;
 import com.minsait.emprestimo.service.EmprestimoService;
 
 import jakarta.validation.Valid;
@@ -36,7 +37,7 @@ public class EmprestimoController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Emprestimo cadastrarEmprestimo(@PathVariable Long cpf, @Valid @RequestBody Emprestimo emprestimo) throws CPFNaoEncontradoException {
+	public Emprestimo cadastrarEmprestimo(@PathVariable Long cpf, @Valid @RequestBody Emprestimo emprestimo) throws CPFNaoEncontradoException, LimiteDeEmprestimoAtingidoException {
 		return this.emprestimoService.cadastrarEmprestimo(cpf, emprestimo);
 	}
 	
