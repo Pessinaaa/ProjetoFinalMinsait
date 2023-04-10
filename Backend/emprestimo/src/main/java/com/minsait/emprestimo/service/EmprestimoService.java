@@ -1,5 +1,7 @@
 package com.minsait.emprestimo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,13 @@ public class EmprestimoService {
 			emprestimo.setCPFCliente(cpf);
 			emprestimo.setNivelRelacionamento(Relacionamento.BRONZE);
 			return this.emprestimoRepository.save(emprestimo);
+		}
+		throw new CPFNaoEncontradoException(cpf);
+	}
+	
+	public List<Emprestimo> retornarTodosEmprestimos(Long cpf) throws CPFNaoEncontradoException {
+		if (this.clienteRepository.existsById(cpf)) {
+			return this.emprestimoRepository.findAllByCPFCliente(cpf); //Retornar todos os empréstimos do cliente que o cpf foi passado
 		}
 		throw new CPFNaoEncontradoException(cpf);
 	}
