@@ -53,4 +53,18 @@ public class EmprestimoService {
 		}
 		throw new CPFNaoEncontradoException(cpf);
 	}
+	
+	public void deletarEmprestimo(Long cpf, Long id) throws CPFNaoEncontradoException, IdNaoEncontradoException, CPFNaoCorrespondenteException {
+		if (this.clienteRepository.existsById(cpf)) {
+			if (this.emprestimoRepository.existsById(id)) {
+				if (this.emprestimoRepository.getReferenceById(id).getCPFCliente().equals(cpf)) {
+					this.emprestimoRepository.deleteById(id);
+					return;
+				}
+				throw new CPFNaoCorrespondenteException(id, cpf);
+			}
+			throw new IdNaoEncontradoException(id);
+		}
+		throw new CPFNaoEncontradoException(cpf);
+	}
 }
