@@ -26,6 +26,9 @@ public class EmprestimoService {
 	}
 	
 	public Emprestimo cadastrarEmprestimo(Long cpf, Emprestimo emprestimo) throws CPFNaoEncontradoException, LimiteDeEmprestimoAtingidoException {
+		if (!this.clienteRepository.existsById(cpf)) {
+			throw new CPFNaoEncontradoException(cpf);
+		}
 		if (this.clientePodePedirEmprestimo(cpf, emprestimo.getValorInicial())) {
 			emprestimo.setCPFCliente(cpf);
 			emprestimo.setNivelRelacionamento(Relacionamento.BRONZE);
