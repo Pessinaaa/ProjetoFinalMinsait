@@ -31,7 +31,8 @@ public class EmprestimoService {
 		}
 		if (this.clientePodePedirEmprestimo(cpf, emprestimo.getValorInicial())) {
 			emprestimo.setCPFCliente(cpf);
-			emprestimo.setNivelRelacionamento(Relacionamento.BRONZE);
+			//emprestimo.setNivelRelacionamento(Relacionamento.BRONZE);
+			emprestimo.setValorFinal(emprestimo.getNivelRelacionamento().calcularValorFinal(emprestimo.getValorInicial(), this.retornarTodosEmprestimos(cpf).size()));
 			return this.emprestimoRepository.save(emprestimo);
 		}
 		throw new LimiteDeEmprestimoAtingidoException(cpf);
