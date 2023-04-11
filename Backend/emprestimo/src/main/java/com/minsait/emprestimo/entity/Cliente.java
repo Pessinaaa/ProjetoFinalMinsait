@@ -2,19 +2,30 @@ package com.minsait.emprestimo.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Cliente {
-	
 	//Atributos
 	
 	@Id
+	@NotNull(message="O CPF é obrigatório")
 	private Long CPF;
 	
+	@NotBlank(message="O nome é obrigatório")
 	private String nome;
+	
+	@NotNull(message="O telefone é obrigatório")
 	private Integer telefone;
+	
+	@NotBlank(message="O endereço é obrigatório")
 	private String endereco; // Rua e número
+	
+	@NotNull(message="O CEP é obrigatório")
 	private Integer CEP;
+	
+	@NotNull(message="O rendimento mensal é obrigatório")
 	private Double rendimentoMensal;
 	
 	//Métodos
@@ -79,6 +90,4 @@ public class Cliente {
 	public void setRendimentoMensal(Double rendimentoMensal) {
 		this.rendimentoMensal = rendimentoMensal;
 	}
-	
-	
 }

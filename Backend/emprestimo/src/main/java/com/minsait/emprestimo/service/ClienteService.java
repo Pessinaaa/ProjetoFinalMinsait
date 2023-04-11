@@ -22,10 +22,10 @@ public class ClienteService {
 	}
 	
 	public Cliente cadastrarCliente(Cliente cliente) throws CPFJaCadastradoException {
-	if (!this.clienteRepository.existsById(cliente.getCPF())) {
-			return this.clienteRepository.save(cliente);
+	if (this.clienteRepository.existsById(cliente.getCPF())) {
+			throw new CPFJaCadastradoException(cliente.getCPF());
 		}
-	throw new CPFJaCadastradoException(cliente.getCPF());
+	return this.clienteRepository.save(cliente);
 	}
 	
 	public List<Cliente> retornarTodosClientes() {
@@ -33,41 +33,40 @@ public class ClienteService {
 	}
 	
 	public Cliente retornarClientePeloCPF(Long cpf) throws CPFNaoEncontradoException {
-		if (this.clienteRepository.existsById(cpf)) {
-			return this.clienteRepository.getReferenceById(cpf);
+		if (!this.clienteRepository.existsById(cpf)) {
+			throw new CPFNaoEncontradoException(cpf);
 		}
-		throw new CPFNaoEncontradoException(cpf);
+		return this.clienteRepository.getReferenceById(cpf);
 	}
 	
 	public void deletarCliente(Long cpf) throws CPFNaoEncontradoException {
-		if (this.clienteRepository.existsById(cpf)) {
-			this.clienteRepository.deleteById(cpf);
-		} else {
+		if (!this.clienteRepository.existsById(cpf)) {
 			throw new CPFNaoEncontradoException(cpf);
 		}
+		this.clienteRepository.deleteById(cpf);
 	}
 	
 	public Cliente alterarCliente(Long cpf, @Valid Cliente cliente) throws CPFNaoEncontradoException {
-		if (this.clienteRepository.existsById(cpf)) {
-			Cliente clienteASerAlterado = this.clienteRepository.getReferenceById(cpf);
-			cliente.setCPF(cpf);
-			if (cliente.getNome() == null) {
-				cliente.setNome(clienteASerAlterado.getNome());
-			}
-			if (cliente.getTelefone() == null) {
-				cliente.setTelefone(clienteASerAlterado.getTelefone());
-			}
-			if (cliente.getEndereco() == null) {
-				cliente.setEndereco(clienteASerAlterado.getEndereco());
-			}
-			if (cliente.getCEP() == null) {
-				cliente.setCEP(clienteASerAlterado.getCEP());
-			}
-			if (cliente.getRendimentoMensal() == null) {
-				cliente.setRendimentoMensal(clienteASerAlterado.getRendimentoMensal());
-			}
-			return this.clienteRepository.save(cliente);
+		if (!this.clienteRepository.existsById(cpf)) {
+			throw new CPFNaoEncontradoException(cpf);
 		}
-		throw new CPFNaoEncontradoException(cpf);
+		Cliente clienteASerAlterado = this.clienteRepository.getReferenceById(cpf);
+		cliente.setCPF(cpf);
+		if (cliente.getNome() == null) {
+			cliente.setNome(clienteASerAlterado.getNome());
+		}
+		if (cliente.getTelefone() == null) {
+			cliente.setTelefone(clienteASerAlterado.getTelefone());
+		}
+		if (cliente.getEndereco() == null) {
+			cliente.setEndereco(clienteASerAlterado.getEndereco());
+		}
+		if (cliente.getCEP() == null) {
+			cliente.setCEP(clienteASerAlterado.getCEP());
+		}
+		if (cliente.getRendimentoMensal() == null) {
+			cliente.setRendimentoMensal(clienteASerAlterado.getRendimentoMensal());
+		}
+		return this.clienteRepository.save(cliente);
 	}
 }

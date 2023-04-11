@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Emprestimo {
@@ -16,20 +17,29 @@ public class Emprestimo {
 	private Long id;
 	
 	private Long CPFCliente;
+	
+	@NotNull(message="O valor inicial do empréstimo é obrigatório")
 	private Double valorInicial;
+	
 	private Double valorFinal;
-	private Relacionamento nivelRelacionamento;
+	
+	@NotNull(message="O relacionamento é obrigatório")
+	private Relacionamento relacionamento;
+	
+	@NotNull(message="A data inicial do empréstimo é obrigatória")
 	private Integer dataInicial;
+	
+	@NotNull(message="A data final do empréstimo é obrigatória")
 	private Integer dataFinal;
 	
 	//Metodos
 	public Emprestimo() {	}
 	
-	public Emprestimo(Long cpfCliente, Double valorInicial, Double valorFinal, Relacionamento nivelRelacionamento, Integer dataInicial, Integer dataFinal) {
+	public Emprestimo(Long cpfCliente, Double valorInicial, Double valorFinal, Relacionamento relacionamento, Integer dataInicial, Integer dataFinal) {
 		CPFCliente = cpfCliente;
 		this.valorInicial = valorInicial;
 		this.valorFinal = valorFinal;
-		this.nivelRelacionamento = nivelRelacionamento;
+		this.relacionamento = relacionamento;
 		this.dataInicial = dataInicial;
 		this.dataFinal = dataFinal;
 	}
@@ -62,11 +72,11 @@ public class Emprestimo {
 		this.valorFinal = valorFinal;
 	}
 
-	public Relacionamento getNivelRelacionamento() {
-		return nivelRelacionamento;
+	public Relacionamento getRelacionamento() {
+		return relacionamento;
 	}
-	public void setNivelRelacionamento(Relacionamento nivelRelacionamento) {
-		this.nivelRelacionamento = nivelRelacionamento;
+	public void setRelacionamento(Relacionamento relacionamento) {
+		this.relacionamento = relacionamento;
 	}
 
 	public Integer getDataInicial() {

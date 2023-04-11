@@ -29,48 +29,46 @@ public class EmprestimoService {
 		if (!this.clienteRepository.existsById(cpf)) {
 			throw new CPFNaoEncontradoException(cpf);
 		}
-		if (this.clientePodePedirEmprestimo(cpf, emprestimo.getValorInicial())) {
-			emprestimo.setCPFCliente(cpf);
-			//emprestimo.setNivelRelacionamento(Relacionamento.BRONZE);
-			emprestimo.setValorFinal(emprestimo.getNivelRelacionamento().calcularValorFinal(emprestimo.getValorInicial(), this.retornarTodosEmprestimos(cpf).size()));
-			return this.emprestimoRepository.save(emprestimo);
+		if (!this.clientePodePedirEmprestimo(cpf, emprestimo.getValorInicial())) {
+			throw new LimiteDeEmprestimoAtingidoException(cpf);
 		}
-		throw new LimiteDeEmprestimoAtingidoException(cpf);
+		emprestimo.setCPFCliente(cpf);
+		emprestimo.setValorFinal(emprestimo.getRelacionamento().calcularValorFinal(emprestimo.getValorInicial(), this.retornarTodosEmprestimos(cpf).size()));
+		return this.emprestimoRepository.save(emprestimo);
 	}
 	
 	public Emprestimo retornarEmprestimoPorId(Long cpf, Long id) throws CPFNaoEncontradoException, IdNaoEncontradoException, CPFNaoCorrespondenteException {
-		if (this.clienteRepository.existsById(cpf)) {
-			if (this.emprestimoRepository.existsById(id)) {
-				Emprestimo emprestimo = this.emprestimoRepository.getReferenceById(id);
-				if (emprestimo.getCPFCliente().equals(cpf)) {
-					return emprestimo;
-				}
-				throw new CPFNaoCorrespondenteException(id, cpf);
-			}
+		if (!this.clienteRepository.existsById(cpf)) {
+			throw new CPFNaoEncontradoException(cpf);
+		}
+		if (!this.emprestimoRepository.existsById(id)) {
 			throw new IdNaoEncontradoException(id);
 		}
-		throw new CPFNaoEncontradoException(cpf);
+		Emprestimo emprestimo = this.emprestimoRepository.getReferenceById(id);
+		if (!emprestimo.getCPFCliente().equals(cpf)) {
+			throw new CPFNaoCorrespondenteException(id, cpf);
+		}
+		return emprestimo;	
 	}
 	
 	public List<Emprestimo> retornarTodosEmprestimos(Long cpf) throws CPFNaoEncontradoException {
-		if (this.clienteRepository.existsById(cpf)) {
-			return this.emprestimoRepository.findAllByCPFCliente(cpf); //Retornar todos os empréstimos do cliente que o cpf foi passado
+		if (!this.clienteRepository.existsById(cpf)) {
+			throw new CPFNaoEncontradoException(cpf);
 		}
-		throw new CPFNaoEncontradoException(cpf);
+		return this.emprestimoRepository.findAllByCPFCliente(cpf); //Retornar todos os empréstimos do cliente que o cpf foi passado
 	}
 	
 	public void deletarEmprestimo(Long cpf, Long id) throws CPFNaoEncontradoException, IdNaoEncontradoException, CPFNaoCorrespondenteException {
-		if (this.clienteRepository.existsById(cpf)) {
-			if (this.emprestimoRepository.existsById(id)) {
-				if (this.emprestimoRepository.getReferenceById(id).getCPFCliente().equals(cpf)) {
-					this.emprestimoRepository.deleteById(id);
-					return;
-				}
-				throw new CPFNaoCorrespondenteException(id, cpf);
-			}
+		if (!this.clienteRepository.existsById(cpf)) {
+			throw new CPFNaoEncontradoException(cpf);
+		}
+		if (!this.emprestimoRepository.existsById(id)) {
 			throw new IdNaoEncontradoException(id);
 		}
-		throw new CPFNaoEncontradoException(cpf);
+		if (!this.emprestimoRepository.getReferenceById(id).getCPFCliente().equals(cpf)) {
+			throw new CPFNaoCorrespondenteException(id, cpf);	
+		}
+		this.emprestimoRepository.deleteById(id);
 	}
 	
 	//Método para verificar se o cliente pode pedir empréstimo no valor solicitado
