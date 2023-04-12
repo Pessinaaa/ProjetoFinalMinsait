@@ -1,8 +1,8 @@
 export interface ICliente {
   cpf?: number;
-  nome: string;
+  nome?: string;
   telefone?: number;
-  endereco: string;
+  endereco?: string;
   cep?: number;
   rendimentoMensal?: number;
 }

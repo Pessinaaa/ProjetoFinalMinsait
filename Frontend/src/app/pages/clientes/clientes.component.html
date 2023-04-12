@@ -1,8 +1,8 @@
-<div class="container-fluid">
+<div class="container-fluid py-4">
   <div class="container-fluid">
     <h1 class="display-6">Clientes</h1>
     <hr>
-    <table class="table">
+    <table class="table text-center">
       <thead>
         <tr>
           <th scope="col">CPF</th>
@@ -22,9 +22,9 @@
           <td>{{cliente.endereco}}</td>
           <td>{{cliente.cep}}</td>
           <td>{{cliente.rendimentoMensal}}</td>
-          <td>
-            <a class="btn btn-primary" routerLink="">Editar</a>
-            <a class="btn btn-danger" routerLink="">Deletar</a>
+          <td class="d-flex gap-2 justify-content-center">
+            <a class="btn btn-primary btn-sm" routerLink="/clientes/alterar/{{cliente.cpf}}">Editar</a>
+            <a class="btn btn-danger btn-sm" routerLink="/clientes/deletar/{{cliente.cpf}}">Deletar</a>
           </td>
         </tr>
       </tbody>
