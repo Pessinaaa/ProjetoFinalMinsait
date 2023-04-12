@@ -23,7 +23,7 @@ import com.minsait.emprestimo.service.ClienteService;
 
 import jakarta.validation.Valid;
 
-//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/v1/emprestimo/clientes")
 public class ClienteController {

@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <div class="container-fluid">
+    <h1 class="display-6">Clientes</h1>
+    <hr>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">CPF</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Telefone</th>
+          <th scope="col">Endereço</th>
+          <th scope="col">CEP</th>
+          <th scope="col">Rendimento mensal</th>
+          <th scope="col">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes">
+          <th scope="row">{{cliente.cpf}}</th>
+          <td>{{cliente.nome}}</td>
+          <td>{{cliente.telefone}}</td>
+          <td>{{cliente.endereco}}</td>
+          <td>{{cliente.cep}}</td>
+          <td>{{cliente.rendimentoMensal}}</td>
+          <td>
+            <a class="btn btn-primary" routerLink="">Editar</a>
+            <a class="btn btn-danger" routerLink="">Deletar</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
