@@ -17,7 +17,7 @@ public class Cliente {
 	private String nome;
 	
 	@NotNull(message="O telefone é obrigatório")
-	private Integer telefone;
+	private Long telefone; // Long pois o limite de Integer é 2147483647 e o telefone será um "número inteiro"
 	
 	@NotBlank(message="O endereço é obrigatório")
 	private String endereco; // Rua e número
@@ -32,7 +32,7 @@ public class Cliente {
 	
 	public Cliente() {	}
 
-	public Cliente(Long cpf, String nome, Integer telefone, String endereco, Integer cep, Double rendimentoMensal) {
+	public Cliente(Long cpf, String nome, Long telefone, String endereco, Integer cep, Double rendimentoMensal) {
 		this.CPF = cpf;
 		this.nome = nome;
 		this.telefone = telefone;
@@ -41,7 +41,7 @@ public class Cliente {
 		this.rendimentoMensal = rendimentoMensal;
 	}
 	
-	public Cliente(String nome, Integer telefone, String endereco, Integer cep, Double rendimentoMensal) {
+	public Cliente(String nome, Long telefone, String endereco, Integer cep, Double rendimentoMensal) {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.endereco = endereco;
@@ -63,10 +63,10 @@ public class Cliente {
 		this.nome = nome;
 	}
 
-	public Integer getTelefone() {
+	public Long getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(Integer telefone) {
+	public void setTelefone(Long telefone) {
 		this.telefone = telefone;
 	}
 

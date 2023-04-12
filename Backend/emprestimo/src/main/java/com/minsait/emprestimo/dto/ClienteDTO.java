@@ -6,7 +6,7 @@ public class ClienteDTO {
 	
 	// Atributos
 	private String nome;
-	private Integer telefone;
+	private Long telefone;
 	private String endereco; // Rua e número
 	private Integer CEP;
 	private Double rendimentoMensal;
@@ -15,7 +15,7 @@ public class ClienteDTO {
 	
 	public ClienteDTO() {	}
 
-	public ClienteDTO(String nome, Integer telefone, String endereco, Integer cep, Double rendimentoMensal) {
+	public ClienteDTO(String nome, Long telefone, String endereco, Integer cep, Double rendimentoMensal) {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.endereco = endereco;
@@ -30,10 +30,10 @@ public class ClienteDTO {
 		this.nome = nome;
 	}
 
-	public Integer getTelefone() {
+	public Long getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(Integer telefone) {
+	public void setTelefone(Long telefone) {
 		this.telefone = telefone;
 	}
 

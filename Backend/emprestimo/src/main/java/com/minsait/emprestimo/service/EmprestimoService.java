@@ -12,7 +12,6 @@ import com.minsait.emprestimo.exception.IdNaoEncontradoException;
 import com.minsait.emprestimo.exception.LimiteDeEmprestimoAtingidoException;
 import com.minsait.emprestimo.repository.ClienteRepository;
 import com.minsait.emprestimo.repository.EmprestimoRepository;
-import com.minsait.emprestimo.strategy.Relacionamento;
 
 @Service
 public class EmprestimoService {

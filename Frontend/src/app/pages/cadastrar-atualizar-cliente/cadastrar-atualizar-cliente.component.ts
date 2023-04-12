@@ -14,11 +14,11 @@ export class CadastrarAtualizarClienteComponent {
   constructor(private clienteService: ClienteService, private route: ActivatedRoute, private router: Router) { }
 
   clienteForm = new FormGroup({
-    cpf: new FormControl(0, Validators.required),
+    cpf: new FormControl(0, [Validators.required, Validators.pattern('^[0-9]{11}$')]),
     nome: new FormControl("", Validators.required),
-    telefone: new FormControl(0, Validators.required),
+    telefone: new FormControl(0, [Validators.required, Validators.pattern('^[0-9]{11}$')]),
     endereco: new FormControl("", Validators.required),
-    cep: new FormControl(0, Validators.required),
+    cep: new FormControl(0, [Validators.required, Validators.pattern('^[0-9]{8}$')]),
     rendimentoMensal: new FormControl(0, Validators.required)
   });
 

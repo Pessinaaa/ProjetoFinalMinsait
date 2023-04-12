@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid py-4">
   <div class="container-fluid">
     <h1 class="display-6">{{ clienteCPF ? 'Alterar' : 'Cadastrar' }}</h1>
     <div class="container-fluid">
@@ -53,7 +53,10 @@
           <app-form-input campo="cep" titulo="CEP" tipo="number"></app-form-input>
           -->
         </div>
-        <button type="submit" class="btn btn-primary" [disabled]="!clienteForm.valid">{{ clienteCPF ? 'Salvar' : 'Cadastrar' }}</button>
+        <div class="d-flex gap-2 justify-content-left">
+          <a class="btn btn-outline-secondary" routerLink="/clientes">Voltar</a>
+          <button type="submit" class="btn btn-primary" [disabled]="!clienteForm.valid">{{ clienteCPF ? 'Salvar' : 'Cadastrar' }}</button>
+        </div>
       </form>
     </div>
   </div>
