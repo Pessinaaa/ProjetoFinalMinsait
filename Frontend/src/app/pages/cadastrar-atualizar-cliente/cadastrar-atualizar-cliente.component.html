@@ -4,14 +4,12 @@
     <div class="container-fluid">
       <form [formGroup]="clienteForm" (ngSubmit)="cadastraOuEdita()">
         <div class="d-flex flex-wrap">
-
           <app-form-input campo="nome" titulo="Nome" tipo="text" [readonly]="clienteCPF ? true : false" [control]="$any(clienteForm.get('nome'))"></app-form-input>
           <app-form-input campo="cpf" titulo="CPF" tipo="number" [readonly]="clienteCPF ? true : false" [control]="$any(clienteForm.get('cpf'))"></app-form-input>
           <app-form-input campo="telefone" titulo="Telefone" tipo="number" [readonly]="false" [control]="$any(clienteForm.get('telefone'))"></app-form-input>
           <app-form-input campo="rendimentoMensal" titulo="Rendimento mensal" tipo="number" [readonly]="false" [control]="$any(clienteForm.get('rendimentoMensal'))"></app-form-input>
           <app-form-input campo="endereco" titulo="Endereço" tipo="text" [readonly]="false" [control]="$any(clienteForm.get('endereco'))"></app-form-input>
           <app-form-input campo="cep" titulo="CEP" tipo="number" [readonly]="false" [control]="$any(clienteForm.get('cep'))"></app-form-input>
-
         </div>
         <div class="d-flex gap-2 justify-content-left">
           <a class="btn btn-outline-secondary" routerLink="/clientes">Voltar</a>
