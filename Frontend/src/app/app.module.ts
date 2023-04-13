@@ -11,6 +11,8 @@ import { SobreComponent } from './pages/sobre/sobre.component';
 import { ClientesComponent } from './pages/clientes/clientes.component';
 import { CadastrarAtualizarClienteComponent } from './pages/cadastrar-atualizar-cliente/cadastrar-atualizar-cliente.component';
 import { FormInputComponent } from './components/form-input/form-input.component';
+import { EmprestimosComponent } from './pages/emprestimos/emprestimos.component';
+import { CadastrarEmprestimoComponent } from './pages/cadastrar-emprestimo/cadastrar-emprestimo.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { FormInputComponent } from './components/form-input/form-input.component
     SobreComponent,
     ClientesComponent,
     CadastrarAtualizarClienteComponent,
-    FormInputComponent
+    FormInputComponent,
+    EmprestimosComponent,
+    CadastrarEmprestimoComponent
   ],
   imports: [
     BrowserModule,

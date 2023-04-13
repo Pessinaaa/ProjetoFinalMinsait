@@ -1,0 +1,35 @@
+<div class="container-fluid py-4">
+  <div class="container-fluid">
+    <h1 class="display-6">Empréstimos</h1>
+    <a class="btn btn-success btn" routerLink="/emprestimos/cadastrar/{{cpf}}">Solicitar</a>
+    <hr>
+    <table class="table text-center table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">CPF do cliente</th>
+          <th scope="col">Valor</th>
+          <th scope="col">Valor com juros</th>
+          <th scope="col">Relacionamento</th>
+          <th scope="col">Data inicial</th>
+          <th scope="col">Data final</th>
+          <th scope="col">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emprestimo of emprestimos">
+          <th scope="row">{{emprestimo.id}}</th>
+          <td>{{emprestimo.cpfcliente}}</td>
+          <td>{{emprestimo.valorInicial}}</td>
+          <td>{{emprestimo.valorFinal}}</td>
+          <td>{{emprestimo.relacionamento}}</td>
+          <td>{{emprestimo.dataInicial}}</td>
+          <td>{{emprestimo.dataFinal}}</td>
+          <td>
+            <a class="btn btn-danger btn-sm" routerLink="/emprestimos/deletar/{{emprestimo.cpfcliente}}/{{emprestimo.id}}">Deletar</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="container-fluid py-4">
+  <div class="container-fluid">
+    <h1 class="display-6 py-2">Solicitar empréstimo</h1>
+    <div class="container-fluid">
+      <form [formGroup]="emprestimoForm" (ngSubmit)="cadastrarEmprestimo()">
+        <div class="d-flex flex-wrap">
+          <app-form-input campo="cpfcliente" titulo="CPF do cliente" tipo="number" [readonly]="true" [control]="$any(emprestimoForm.get('cpfcliente'))"></app-form-input>
+          <app-form-input campo="valorInicial" titulo="Valor do empréstimo" tipo="number" [control]="$any(emprestimoForm.get('valorInicial'))"></app-form-input>
+
+
+
+          <div class="mb-3">
+            <select class="form-select mb-3" (change)="relacionamentoSelect($event)" formControlName="relacionamento">
+              <option value="">Nível de relacionamento</option>
+              <option *ngFor="let relacionamento of Relacionamento" [ngValue]="relacionamento">
+                {{relacionamento}}
+              </option>
+          </select>
+          </div>
+
+          <app-form-input campo="dataInicial" titulo="Data inicial" tipo="number" [control]="$any(emprestimoForm.get('dataInicial'))"></app-form-input>
+          <app-form-input campo="dataFinal" titulo="Data final" tipo="number" [control]="$any(emprestimoForm.get('dataFinal'))"></app-form-input>
+        </div>
+        <div class="d-flex gap-2 justify-content-left">
+          <a class="btn btn-outline-secondary" routerLink="/emprestimos/{{this.cpf}}">Voltar</a>
+          <button type="submit" class="btn btn-primary" [disabled]="!emprestimoForm.valid">Solicitar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
