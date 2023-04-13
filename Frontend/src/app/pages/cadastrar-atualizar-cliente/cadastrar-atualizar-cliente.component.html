@@ -1,57 +1,17 @@
 <div class="container-fluid py-4">
   <div class="container-fluid">
-    <h1 class="display-6">{{ clienteCPF ? 'Alterar' : 'Cadastrar' }}</h1>
+    <h1 class="display-6 py-2">{{ clienteCPF ? 'Alterar' : 'Cadastrar' }} cliente</h1>
     <div class="container-fluid">
       <form [formGroup]="clienteForm" (ngSubmit)="cadastraOuEdita()">
-        <div class="row">
+        <div class="d-flex flex-wrap">
 
-          <div class="col-3">
-            <div class="mb-3">
-              <label for="nome" class="form-label">Nome</label>
-              <input type="text" class="form-control" id="nome" formControlName="nome"/>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="mb-3">
-              <label for="cpf" class="form-label">CPF</label>
-              <input type="number" class="form-control" id="cpf" formControlName="cpf"/>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="mb-3">
-              <label for="telefone" class="form-label">Telefone</label>
-              <input type="number" class="form-control" id="telefone" formControlName="telefone"/>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="mb-3">
-              <label for="rendimentoMensal" class="form-label">Rendimento mensal</label>
-              <input type="number" class="form-control" id="rendimentoMensal" formControlName="rendimentoMensal"/>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="mb-3">
-              <label for="endereco" class="form-label">Endereço</label>
-              <input type="text" class="form-control" id="endereco" formControlName="endereco"/>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="mb-3">
-              <label for="cep" class="form-label">CEP</label>
-              <input type="number" class="form-control" id="cep" formControlName="cep"/>
-            </div>
-          </div>
+          <app-form-input campo="nome" titulo="Nome" tipo="text" [readonly]="clienteCPF ? true : false" [control]="$any(clienteForm.get('nome'))"></app-form-input>
+          <app-form-input campo="cpf" titulo="CPF" tipo="number" [readonly]="clienteCPF ? true : false" [control]="$any(clienteForm.get('cpf'))"></app-form-input>
+          <app-form-input campo="telefone" titulo="Telefone" tipo="number" [readonly]="false" [control]="$any(clienteForm.get('telefone'))"></app-form-input>
+          <app-form-input campo="rendimentoMensal" titulo="Rendimento mensal" tipo="number" [readonly]="false" [control]="$any(clienteForm.get('rendimentoMensal'))"></app-form-input>
+          <app-form-input campo="endereco" titulo="Endereço" tipo="text" [readonly]="false" [control]="$any(clienteForm.get('endereco'))"></app-form-input>
+          <app-form-input campo="cep" titulo="CEP" tipo="number" [readonly]="false" [control]="$any(clienteForm.get('cep'))"></app-form-input>
 
-          <!--
-          <app-form-input campo="nome" titulo="Nome" tipo="text"></app-form-input>
-          <div class="d-flex">
-            <app-form-input campo="cpf" titulo="CPF" tipo="number"></app-form-input>
-            <app-form-input campo="telefone" titulo="Telefone" tipo="number"></app-form-input>
-            <app-form-input campo="rendimentoMensal" titulo="Rendimento mensal" tipo="number"></app-form-input>
-          </div>
-          <app-form-input campo="endereco" titulo="Endereco" tipo="text"></app-form-input>
-          <app-form-input campo="cep" titulo="CEP" tipo="number"></app-form-input>
-          -->
         </div>
         <div class="d-flex gap-2 justify-content-left">
           <a class="btn btn-outline-secondary" routerLink="/clientes">Voltar</a>

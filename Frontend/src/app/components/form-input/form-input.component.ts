@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-form-input',
@@ -9,4 +10,6 @@ export class FormInputComponent {
   @Input() campo: string = "";
   @Input() titulo: string = "";
   @Input() tipo: string = "text";
+  @Input() control!: FormControl;
+  @Input() readonly: boolean = false
 }

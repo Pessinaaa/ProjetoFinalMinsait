@@ -13,18 +13,11 @@ import Swal from 'sweetalert2';
 export class CadastrarAtualizarClienteComponent {
   constructor(private clienteService: ClienteService, private route: ActivatedRoute, private router: Router) { }
 
-  clienteForm = new FormGroup({
-    cpf: new FormControl(0, [Validators.required, Validators.pattern('^[0-9]{11}$')]),
-    nome: new FormControl("", Validators.required),
-    telefone: new FormControl(0, [Validators.required, Validators.pattern('^[0-9]{11}$')]),
-    endereco: new FormControl("", Validators.required),
-    cep: new FormControl(0, [Validators.required, Validators.pattern('^[0-9]{8}$')]),
-    rendimentoMensal: new FormControl(0, Validators.required)
-  });
-
+  clienteForm!: FormGroup;
   clienteCPF = 0;
 
   ngOnInit() {
+    this.criarFormulario();
     this.clienteCPF = Number(this.route.snapshot.paramMap.get('cpf'));
     if (this.clienteCPF) {
       this.clienteService.buscarClientePeloCPF(this.clienteCPF).subscribe((cliente: ICliente) => {
@@ -88,5 +81,16 @@ export class CadastrarAtualizarClienteComponent {
     } else {
       this.cadastrarCliente();
     }
+  }
+
+  criarFormulario() {
+    this.clienteForm = new FormGroup({
+      cpf: new FormControl(0, [Validators.required, Validators.pattern('^[0-9]{11}$')]),
+      nome: new FormControl("", Validators.required),
+      telefone: new FormControl(0, [Validators.required, Validators.pattern('^[0-9]{11}$')]),
+      endereco: new FormControl("", Validators.required),
+      cep: new FormControl(0, [Validators.required, Validators.pattern('^[0-9]{8}$')]),
+      rendimentoMensal: new FormControl(0, Validators.required)
+    });
   }
 }
